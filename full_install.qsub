@@ -1,0 +1,55 @@
+#!/bin/bash
+#$ -cwd
+#$ -j y
+#$ -pe smp 8
+#$ -l h_rt=24:00:00
+
+LOCATION=/data/scratch/$USER/COCO
+
+module purge
+
+module load git
+module load python
+
+
+echo "Creating directory"
+mkdir $LOCATION
+cd $LOCATION
+
+echo "Setting up Python environment"
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install numpy
+
+echo "Downloading Karpathy split file"
+wget -c https://github.com/Delphboy/karpathy-splits/raw/main/dataset_coco.json\?download\= -O dataset_coco.json
+
+
+echo "Downloading scripts"
+git clone git@github.com:Delphboy/coco-scripts.git
+
+
+echo "Running BUTD setup"
+python3 butd/make_bu_data.py --downloaded_feats "/data/PublicDataSets/Coco-2014/pretrained/" \
+                            --output_dir "$LOCATION/butd"
+
+
+###################
+echo "Downloading VSUA/SGAE data"
+
+curl -L "https://drive.usercontent.google.com/download?id=14jk1AqnJwBXwlkfGnEgj3GyHbGcSSlij&confirm=xxx" -o coco_img_sg.zip
+
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1pTLfyq5nOLTqqZiKDsZ2hzlRoetfD-Y7' -O coco_pred_sg_rela.npy
+
+curl -L "https://drive.usercontent.google.com/download?id=1G9_ZdjyIprl2wyWCExslWTWOimJf3x8G&confirm=xxx" -o vsua_box_info.pkl
+
+
+unzip coco_img_sg.zip
+rm coco_img_sg.zip
+
+
+python3 vsua/cal_geometry_feats.py --input_file "$LOCATION/vsua_box_info.pkl" \
+                                    --save_path "$LOCATION/geometry_feats"
+
+python3 vsua/build_geometry_graph.py --save_path "$LOCATION/geometry-iou" \
+                                    --geometry_path "$LOCATION/geometry_feats"
