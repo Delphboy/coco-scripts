@@ -12,5 +12,5 @@ python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install numpy
 
-python3 scripts/make_bu_data.py --downloaded_feats "/data/PublicDataSets/Coco-2014/pretrained/" \
-                                --output_dir "/data/scratch/$USER/COCO/butd"
+python3 butd/make_bu_data.py --downloaded_feats "/data/PublicDataSets/Coco-2014/pretrained/" \
+                            --output_dir "/data/scratch/$USER/COCO/butd"

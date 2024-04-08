@@ -1,6 +1,16 @@
 # COCO Scripts
 A set of scripts for the COCO dataset
 
+
+## Setup
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+
+python3 -m pip install numpy
+```
+
 ## Bottom Up Top Down
 
 The BUTD features can be downloaded following the instructions [here](https://github.com/peteanderson80/bottom-up-attention). 

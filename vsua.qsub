@@ -1,0 +1,19 @@
+#!/bin/bash
+#$ -cwd
+#$ -j y
+#$ -pe smp 8
+#$ -l h_rt=2:00:00
+
+module purge
+
+module load python
+
+source .venv/bin/activate
+
+python3 -m pip install numpy
+
+python3 vsua/cal_geometry_feats.py --input_file "/data/EECS-YuanLab/COCO/vsua_box_info.pkl" \
+                                    --save_path "/data/EECS-YuanLab/COCO/geometry_feats"
+
+python3 vsua/build_geometry_graph.py --save_path "/data/EECS-YuanLab/COCO/geometry-iou" \
+                                    --geometry_path "/data/EECS-YuanLab/COCO/geometry_feats"
