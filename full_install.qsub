@@ -30,7 +30,7 @@ git clone git@github.com:Delphboy/coco-scripts.git
 
 
 echo "Running BUTD setup"
-python3 butd/make_bu_data.py --downloaded_feats "/data/PublicDataSets/Coco-2014/pretrained/" \
+python3 coco-scripts/butd/make_bu_data.py --downloaded_feats "/data/PublicDataSets/Coco-2014/pretrained/" \
                             --output_dir "$LOCATION/butd"
 
 
@@ -48,8 +48,8 @@ unzip coco_img_sg.zip
 rm coco_img_sg.zip
 
 
-python3 vsua/cal_geometry_feats.py --input_file "$LOCATION/vsua_box_info.pkl" \
+python3 coco-scripts/vsua/cal_geometry_feats.py --input_file "$LOCATION/vsua_box_info.pkl" \
                                     --save_path "$LOCATION/geometry_feats"
 
-python3 vsua/build_geometry_graph.py --save_path "$LOCATION/geometry-iou" \
+python3 coco-scripts/vsua/build_geometry_graph.py --save_path "$LOCATION/geometry-iou" \
                                     --geometry_path "$LOCATION/geometry_feats"
