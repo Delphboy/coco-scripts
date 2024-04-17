@@ -40,7 +40,7 @@ def get_cwh(box):
 
 def cal_geometry_feats(id):
     counter.add(1)
-    logger.info('{} / {}'.format(counter.value, num_images))
+    # logger.info('{} / {}'.format(counter.value, num_images))
     info = box_info[id]
     boxes = info['boxes']
     num_boxes = boxes.shape[0]
@@ -105,9 +105,9 @@ def cal_geometry_feats(id):
             f8 = angle
             feat = [f1, f2, f3, f4, f5, f6, f7, f8]
             feats[i][j] = np.array(feat)
-    # if counter.value % 100 == 0 and counter.value >= 100:
+    if counter.value % 100 == 0 and counter.value >= 100:
         # print('{} / {}'.format(counter.value, num_images))
-        # logger.info('{} / {}'.format(counter.value, num_images))
+        logger.info('{} / {}'.format(counter.value, num_images))
     return id, feats
 
 
@@ -131,12 +131,12 @@ if __name__ == '__main__':
     counter = Counter()
 
     logger.info("[INFO] Start")
-    # p = Pool(20)
-    # results = p.map(cal_geometry_feats, box_info.keys())
+    p = Pool(20)
+    results = p.map(cal_geometry_feats, box_info.keys())
 
-    results = []
-    for id in box_info.keys():
-        results.append(cal_geometry_feats(id))
+    # results = []
+    # for id in box_info.keys():
+    #     results.append(cal_geometry_feats(id))
 
     all_feats = {res[0]: res[1] for res in results}
     logger.info("[INFO] Finally %d processed" % len(all_feats))
