@@ -82,10 +82,7 @@ save_dir = args.save_path + "-iou{}-dist{}-{}directed".format(
 
 geometry_feature_path = args.geometry_path + "-{}directed.pkl".format("" if is_directed else "un")
 
-if os.path.exists(save_dir):
-    raise Exception("dir already exists")
-else:
-    os.makedirs(save_dir, exist_ok=True)
+os.makedirs(save_dir, exist_ok=True)
 
 counter = Counter()
 print("loading geometry features of all box pairs....")
