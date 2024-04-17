@@ -9,6 +9,12 @@ from multiprocessing import Pool, Value
 
 import argparse
 
+import logging
+
+# setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 class Counter(object):
     def __init__(self):
         self.val = Value('i', 0)
@@ -99,7 +105,8 @@ def cal_geometry_feats(id):
             feat = [f1, f2, f3, f4, f5, f6, f7, f8]
             feats[i][j] = np.array(feat)
     if counter.value % 100 == 0 and counter.value >= 100:
-        print('{} / {}'.format(counter.value, num_images))
+        # print('{} / {}'.format(counter.value, num_images))
+        logger.info('{} / {}'.format(counter.value, num_images))
     return id, feats
 
 
@@ -123,10 +130,10 @@ if __name__ == '__main__':
     counter = Counter()
 
     p = Pool(20)
-    print("[INFO] Start")
+    logger.info("[INFO] Start")
     results = p.map(cal_geometry_feats, box_info.keys())
     all_feats = {res[0]: res[1] for res in results}
-    print("[INFO] Finally %d processed" % len(all_feats))
+    logger.info("[INFO] Finally %d processed" % len(all_feats))
 
     with open(save_path, 'wb') as f:
         pickle.dump(all_feats, f)
