@@ -1,0 +1,16 @@
+#!/bin/bash
+#$ -pe smp 8
+#$ -l h_vmem=1G
+#$ -l h_rt=1:0:0
+#$ -cwd
+#$ -j y
+
+module purge
+
+module load python
+
+source .venv/bin/activate
+
+python3 feature_order/feature_order.py --bbox_dir "/data/EECS-YuanLab/COCO/butd_box/" \
+                                    --feature_dir "/data/EECS-YuanLab/COCO/butd_clip/" \
+                                    --output_dir  "/data/scratch/eey362/butd_clip_sorted/" \

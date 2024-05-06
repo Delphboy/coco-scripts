@@ -5,12 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Sort BUTD by bbox",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "feature_order/feature_order.py",
+            "args": [
+                "--bbox_dir", "/import/gameai-01/eey362/VSUA-Captioning/data/cocobu_box/",
+                "--feature_dir", "/import/gameai-01/eey362/VSUA-Captioning/data/cocobu_att/",
+                "--output_dir", "/import/gameai-01/eey362/datasets/coco/butd_ordered",
+            ],
+            "console": "integratedTerminal"
+        },
+        {
             "name": "CLIP Features for BUTD Objects",
             "type": "debugpy",
             "request": "launch",
             "program": "clip_extractor/extract_clip_features.py",
             "args": [
                 "--karpathy_json_file", "/import/gameai-01/eey362/VSUA-Captioning/data/dataset_coco.json",
+                // "--karpathy_json_file", "/homes/hps01/dataset_coco_10.json",
                 "--image_dir", "/import/gameai-01/eey362/datasets/coco/images/",
                 "--butd_box_dir", "/import/gameai-01/eey362/VSUA-Captioning/data/cocobu_box/",
                 "--output_dir", "/import/gameai-01/eey362/datasets/coco/butd_clip",
