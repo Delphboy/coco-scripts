@@ -5,10 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Sort by Saliency",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "feature_order/saliency.py",
+            "args": [
+                "--karpathy_json_file", "/homes/hps01/dataset_coco_10.json",
+                "--image_dir", "/import/gameai-01/eey362/datasets/coco/images/",
+                "--feature_dir", "/import/gameai-01/eey362/VSUA-Captioning/data/cocobu_att/",
+                "--bbox_dir", "/import/gameai-01/eey362/VSUA-Captioning/data/cocobu_box/",
+                "--output_dir", "/import/gameai-01/eey362/datasets/coco/butd_ordered_saliency",
+            ],
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Sort BUTD by bbox",
             "type": "debugpy",
             "request": "launch",
-            "program": "feature_order/feature_order.py",
+            "program": "feature_order/bbox_size.py",
             "args": [
                 "--bbox_dir", "/import/gameai-01/eey362/VSUA-Captioning/data/cocobu_box/",
                 "--feature_dir", "/import/gameai-01/eey362/VSUA-Captioning/data/cocobu_att/",
