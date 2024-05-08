@@ -11,6 +11,15 @@ module load python
 
 source .venv/bin/activate
 
-python3 feature_order/feature_order.py --bbox_dir "/data/EECS-YuanLab/COCO/butd_box/" \
-                                    --feature_dir "/data/EECS-YuanLab/COCO/butd_clip/" \
-                                    --output_dir  "/data/scratch/eey362/butd_clip_sorted/" \
+python3 -m pip install opencv-python
+python3 -m pip install opencv-contrib-python
+
+# python3 feature_order/feature_order.py --bbox_dir "/data/EECS-YuanLab/COCO/butd_box/" \
+#                                     --feature_dir "/data/EECS-YuanLab/COCO/butd_clip/" \
+#                                     --output_dir  "/data/scratch/eey362/butd_clip_sorted/" \
+
+python3 feature_order/saliency.py --karpathy_json_path "/data/EECS-YuanLab/COCO/dataset_coco.json" \
+                                --image_dir "" \
+                                --feature_dir "/data/EECS-YuanLab/COCO/butd_att/" \
+                                --bbox_dir "/data/EECS-YuanLab/COCO/butd_box/" \
+                                --output_dir  "/data/scratch/eey362/butd_att_sorted_saliency/data/PublicDataSets/Coco-2014/" \
