@@ -30,14 +30,10 @@ from __future__ import print_function
 import os
 import json
 import argparse
-from random import shuffle, seed
-import string
+from random import seed
 # non-standard dependencies:
 import h5py
 import numpy as np
-import torch
-import torchvision.models as models
-import skimage.io
 from PIL import Image
 
 def build_vocab(imgs, params):
