@@ -1,6 +1,9 @@
 import json
 import argparse
 import os
+import random
+
+random.seed(42)
 
 train = []
 val = []
@@ -24,7 +27,7 @@ def main(file_name, output_location, percentage):
         else:
             train.append(img)
 
-    mini_train = train[: int(len(train) * percentage)]
+    mini_train = random.sample(train, int(len(train) * percentage))
     # mini_val = val[: int(len(val) * PERCENTAGE)]
     # mini_test = test[: int(len(test) * PERCENTAGE)]
 
@@ -35,11 +38,11 @@ def main(file_name, output_location, percentage):
     print(f"Number of image in train: {len(mini_train)}")
     print(f"Number of image in val: {len(val)}")
     print(f"Number of image in test: {len(test)}")
-    print(f"Number of image in new dataset split: {len(new_data["images"])}")
+    print(f"Number of image in new dataset split: {len(new_data['images'])}")
 
     # Output file
     out_file = os.path.join(
-        output_location, f"new_dataset_coco_{int(percentage * 100)}.json"
+        output_location, f"dataset_coco_{int(percentage * 100)}.json"
     )
     with open(out_file, "w+") as f:
         json.dump(new_data, f)
